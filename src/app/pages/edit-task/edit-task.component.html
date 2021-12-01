@@ -1,22 +1,22 @@
-<mat-card class="container">
+<mat-card *ngIf="task$ | async as task" class="container">
     <form class="form" *ngIf="taskForm" [formGroup]="taskForm" (ngSubmit)="onSubmit()">
       <mat-form-field appearance="fill">
         <mat-label>Title</mat-label>
-        <input matInput placeholder="Digite o título" formControlName="title">
+        <input matInput placeholder="Digite o título" [(ngModel)]="task.title" formControlName="title">
       </mat-form-field>
 
       <mat-form-field appearance="fill">
         <mat-label>Description</mat-label>
-        <input matInput placeholder="Digite a descrição" formControlName="description">
+        <input matInput placeholder="Digite a descrição" [(ngModel)]="task.description" formControlName="description">
       </mat-form-field>
 
       <mat-form-field appearance="fill">
         <mat-label>Due Date</mat-label>
-        <input type="date" matInput placeholder="Digite a data limite" formControlName="dueDate">
+        <input type="date" matInput [(ngModel)]="task.dueDate" formControlName="dueDate">
       </mat-form-field>
 
       <mat-form-field appearance="fill">
-        <mat-select formControlName="priority">
+        <mat-select [(ngModel)]="task.priority" formControlName="priority">
           <mat-option value="LOW">Low</mat-option>
           <mat-option value="MEDIUM">Medium</mat-option>
           <mat-option value="HIGH">High</mat-option>

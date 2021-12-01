@@ -8,8 +8,11 @@
         </ul>
     </mat-card-content>
     <mat-card-actions>
-        <button mat-fab color="warn">
+        <button mat-fab color="primary" (click)="goToEditTask()">
+            <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-fab color="warn" (click)="onDelete()">
             <mat-icon>delete</mat-icon>
         </button>
     </mat-card-actions>
-  </mat-card>
+</mat-card>

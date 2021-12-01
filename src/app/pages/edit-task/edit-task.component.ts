@@ -1,24 +1,31 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-
-import {v4 as uuidv4} from 'uuid';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
 
 import { Task } from 'src/app/models/task.model';
 
 import { TodoListService } from 'src/app/services/todo-list.service';
 
-
 @Component({
-  selector: 'app-add-task',
-  templateUrl: './add-task.component.html',
-  styleUrls: ['./add-task.component.css']
+  selector: 'app-edit-task',
+  templateUrl: './edit-task.component.html',
+  styleUrls: ['./edit-task.component.css']
 })
-export class AddTaskComponent implements OnInit {
+export class EditTaskComponent implements OnInit {
   taskForm?: FormGroup;
+  id: string | null | undefined;
+  task$?: Observable<Task>;
 
-  constructor(private todoListService: TodoListService) { }
+  constructor(private todoListService: TodoListService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.id = this.route.snapshot.paramMap.get('id');
+
+    this.task$ = this.todoListService.getTaskById(this.id);
+
+    this.task$.subscribe();
+
     this.taskForm = new FormGroup({
       'title': new FormControl(null),
       'description': new FormControl(null),
@@ -28,7 +35,7 @@ export class AddTaskComponent implements OnInit {
   }
 
   onSubmit () {
-    const id = uuidv4();
+    const id = this.id;
     const title = this.taskForm?.controls['title'].value;
     const description = this.taskForm?.controls['description'].value;
     const dueDate = new Date(this.taskForm?.controls['dueDate'].value);
@@ -44,7 +51,7 @@ export class AddTaskComponent implements OnInit {
       labels
     }
 
-    this.todoListService.addTask(task).subscribe();
+    this.todoListService.updateTask(task).subscribe();
   }
 
 }

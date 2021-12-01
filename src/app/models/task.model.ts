@@ -5,7 +5,7 @@ export enum TaskPriority {
 };
   
 export interface Task {
-    id: string;
+    id: string | null | undefined;
     title: string;
     description: string;
     dueDate: Date;
