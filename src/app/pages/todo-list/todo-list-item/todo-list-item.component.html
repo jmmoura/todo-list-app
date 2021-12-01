@@ -1,0 +1,15 @@
+<mat-card *ngIf="task" class="item">
+    <mat-card-title>{{ task.title }}</mat-card-title>
+    <mat-card-subtitle>{{ task.description }}</mat-card-subtitle>
+    <mat-card-content>
+        <ul class="item-content">
+            <li>Due date: {{ task.dueDate | date: 'dd/MM/yyyy' }}</li>
+            <li>Priority: {{ task.priority }}</li>
+        </ul>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-fab color="warn">
+            <mat-icon>delete</mat-icon>
+        </button>
+    </mat-card-actions>
+  </mat-card>
